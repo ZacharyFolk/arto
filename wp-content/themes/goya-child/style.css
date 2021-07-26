@@ -3,7 +3,7 @@
 * Description: This is a child theme of Goya, automatically generated.
 * Author: <a href="https://themeforest.net/user/luisvelaz">Everthemes</a>
 * Template: goya
-* Version: 1.0.5.2
+* Version: 1.0.5.4
 */
 
 @font-face {
@@ -27,4 +27,21 @@
   font-stretch: normal;
   font-display: swap;
   unicode-range: U+000-5FF;
+}
+
+/* Home slider updates */
+.et-banner-text .et-banner-subtitle {
+  text-transform: lowercase;
+  font-size: 1.4rem;
+}
+.et-banner-paragraph {
+  font-size: 1.2rem;
+}
+@media (max-width: 767px) {
+  .et-banner-text-inner h2 {
+    margin-bottom: 0;
+  }
+  .et-banner-text .et-banner-subtitle {
+    font-size: 1rem;
+  }
 }
