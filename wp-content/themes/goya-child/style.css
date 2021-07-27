@@ -63,3 +63,12 @@
     font-size: 2.5rem;
   }
 }
+
+/* todo : this is kind of ugly */
+.post-share {
+  display: inline-flex;
+}
+.cc-graphic {
+  display: inline-flex;
+  margin: 33px 0 0 10px;
+}
