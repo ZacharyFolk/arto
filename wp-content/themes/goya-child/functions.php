@@ -111,7 +111,11 @@ function _size_el() {
         if ( $copyValue === 'yes') :
             echo '<div class="cc-graphic">
             <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">
-            <img src="'.get_site_url() .'/wp-content/assets/images/cc-by-nc-nd.png" alt="Creative Commons License BY-NC-DD" title="This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License"/></div></a>';
+            <img src="'.get_site_url() .'/wp-content/assets/images/cc-by-nc-nd-80x15.png" alt="Creative Commons License BY-NC-DD" title="This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License"/></div></a>';
+        else: 
+            echo '<div class="cc-graphic">
+            <a rel="license" target="_blank" href="https://creativecommons.org/publicdomain/mark/1.0/">
+            <img src="'.get_site_url() .'/wp-content/assets/images/cc-pd-80x15.png" alt="Create Commons Public Domain License" title="This work has been identified as being free of known restrictions under copyright law, including all related and neighboring rights."/></div></a>';
 
             endif;
         
