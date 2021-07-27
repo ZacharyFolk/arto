@@ -3,13 +3,13 @@
 * Description: This is a child theme of Goya, automatically generated.
 * Author: <a href="https://themeforest.net/user/luisvelaz">Everthemes</a>
 * Template: goya
-* Version: 1.0.5.4
+* Version: 1.0.5
 */
 
 @font-face {
-  font-family: "Linden Hill";
-  src: local("Linden Hill"), local("Linden Hill"),
-    url("fonts/Linden_Hill/LindenHill-Regular.ttf") format("truetype");
+  font-family: 'Linden Hill';
+  src: local('Linden Hill'), local('Linden Hill'),
+    url('fonts/Linden_Hill/LindenHill-Regular.ttf') format('truetype');
   /* Is this problem to only use truetype?*/
   font-weight: 400;
   font-style: normal;
@@ -19,9 +19,9 @@
 }
 
 @font-face {
-  font-family: "Linden Hill";
-  src: local("Linden Hill"), local("Linden Hill"),
-    url("fonts/Linden_Hill/LindenHill-Italic.ttf") format("truetype");
+  font-family: 'Linden Hill';
+  src: local('Linden Hill'), local('Linden Hill'),
+    url('fonts/Linden_Hill/LindenHill-Italic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
   font-stretch: normal;
@@ -37,11 +37,29 @@
 .et-banner-paragraph {
   font-size: 1.2rem;
 }
+
+.showcase-active .woocommerce-breadcrumb,
+.showcase-active .product_actions_wrap {
+  display: block;
+}
+
 @media (max-width: 767px) {
   .et-banner-text-inner h2 {
     margin-bottom: 0;
   }
   .et-banner-text .et-banner-subtitle {
     font-size: 1rem;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .et-product-detail
+    .showcase-active
+    .woocommerce-product-details__short-description {
+    display: block;
+  }
+}
+@media only screen and (min-width: 1490px) {
+  .et-product-detail .showcase-active .summary h1.product_title {
+    font-size: 2.5rem;
   }
 }
