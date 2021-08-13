@@ -45,10 +45,9 @@ function woocommerce_product_custom_fields()
 {
     global $woocommerce, $post;
     echo '<div class="product_custom_field">';
-    // Custom Product Text Field
     woocommerce_wp_text_input(
         array(
-            'id' => '_custom_product_size_field',
+            'id' => '_single_size_field',
             'placeholder' => 'Size if single option',
             'label' => __('Size:', 'woocommerce'),
             'desc_tip' => 'true',
@@ -83,6 +82,11 @@ add_action('woocommerce_product_data_panels', function() {
 		'label' => __('Artist Credit Link', 'txtdomain'),
 	]);
 
+    woocommerce_wp_text_input([
+		'id' => '_creation_date',
+		'label' => __('Date: ', 'txtdomain'),
+	]);
+
     woocommerce_wp_checkbox(
         array(
             'id' => '_custom_product_copyright_checkbox',
@@ -112,6 +116,8 @@ function woocommerce_product_custom_fields_save($post_id)
     $artist_credit_link = $_POST['_artist_credit_link'];
     if (!empty($artist_credit_link)) update_post_meta($post_id, '_artist_credit_link', esc_attr($artist_credit_link));    
 
+    $creation_date = $_POST['_creation_date'];
+    if (!empty($creation_date)) update_post_meta($post_id, '_creation_date', esc_attr($creation_date));   
 }
 add_action('woocommerce_process_product_meta', 'woocommerce_product_custom_fields_save');
 
@@ -145,6 +151,12 @@ function _copyright_el()
             <a rel="license" target="_blank" href="https://creativecommons.org/publicdomain/mark/1.0/">
             <img src="' . get_site_url() . '/wp-content/assets/images/cc-pd-80x15.png" alt="Create Commons Public Domain License" title="This work has been identified as being free of known restrictions under copyright law, including all related and neighboring rights."/></div></a>';
 
+    endif;
+    $creationDate = get_post_meta($product->id, '_creation_date', true);
+    if ($creationDate) :
+        echo '<div>';
+        echo '<span><strong> Date:</strong> ' . $creationDate . '</span>';
+        echo '</div>';
     endif;
 }
 
