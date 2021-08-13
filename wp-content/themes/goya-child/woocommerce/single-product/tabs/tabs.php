@@ -54,18 +54,14 @@ if ( ! empty( $product_tabs ) ) :
 					</div>
 				</div>
 				<?php foreach ( $product_tabs as $key => $product_tab ) : 
-					if ( $key == 'description' ) {
-						$tab_is_description = true;
-					} else {
-						$tab_is_description = false;
-					}
+					// if ( $key == 'description' ) {
+					// 	$tab_is_description = true;
+					// } else {
+					// 	$tab_is_description = false;
+					// }
 				?>
 					<div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--<?php echo esc_attr( $key ); ?> panel entry-content wc-tab" id="tab-<?php echo esc_attr( $key ); ?>" role="tabpanel" aria-labelledby="tab-title-<?php echo esc_attr( $key ); ?>">
-						<?php
-						if ( isset( $product_tab['callback'] ) && $tab_is_description ) :
-							call_user_func( $product_tab['callback'], $key, $product_tab );
-						else :
-						?>
+			
 						<div class="container">
 							<div class="row justify-content-md-center">
 								<div class="col-12">
@@ -77,7 +73,7 @@ if ( ! empty( $product_tabs ) ) :
 								</div>
 							</div>
 						</div>
-						<?php endif; ?>
+				
 					</div>
 				<?php endforeach; ?>
 			</div>

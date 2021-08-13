@@ -71,3 +71,7 @@
   display: inline-flex;
   margin: 33px 0 0 10px;
 }
+
+.woocommerce-tabs .tabs {
+  text-align: justify;
+}
