@@ -75,3 +75,8 @@
 .woocommerce-tabs .tabs {
   text-align: justify;
 }
+
+.banner-text-dk-bkgd .et-banner-content-inner {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+}
