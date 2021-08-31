@@ -43,12 +43,19 @@
   display: block;
 }
 
+.header .logolink img {
+  max-height: 42px !important;
+}
+
 @media (max-width: 767px) {
   .et-banner-text-inner h2 {
     margin-bottom: 0;
   }
   .et-banner-text .et-banner-subtitle {
     font-size: 1rem;
+  }
+  .header .logolink img {
+    max-height: 42px !important;
   }
 }
 @media only screen and (min-width: 992px) {
@@ -76,7 +83,7 @@
   text-align: justify;
 }
 
-.banner-text-dk-bkgd .et-banner-content-inner {
+.banner-text-dk-bkgd .et-banner-text-inner {
   background: rgba(0, 0, 0, 0.5);
   padding: 20px;
 }
