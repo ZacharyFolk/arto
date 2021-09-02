@@ -44,7 +44,7 @@
 }
 
 .header .logolink img {
-  max-height: 48px !important;
+  max-height: 42px !important;
 }
 
 @media (max-width: 767px) {
