@@ -27,3 +27,12 @@ twentytwenty/
 twentytwentyone/
 goya/
 fonts/
+# from host
+FETCH_HEAD
+HEAD
+config
+description
+favicon.gif
+favicon.ico
+hooks/
+info/
