@@ -92,3 +92,44 @@ h2.latin {
   font-style: italic;
   opacity: 0.7;
 }
+.et-banner-text.v_top {
+  padding-top: 2%;
+}
+
+.thumbnails-vertical .has-additional-thumbnails .flex-control-thumbs {
+  top: 40px;
+}
+
+/* banners */
+
+.banner-style-1 {
+  position: relative;
+}
+.banner-style-1 .wpb_wrapper {
+  height: 300px;
+  position: relative;
+}
+
+.banner-style-1 header {
+  color: #e0e0e0;
+  padding: 10px 32px 16px;
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+}
+
+.banner-style-1 h3 {
+  font-size: 1.6rem;
+}
+
+.banner-style-1 a {
+  color: #e0e0e0;
+  position: relative;
+  z-index: 2;
+}
+
+.et-banner-content-inner h2,
+.et-banner-content-inner .et-banner-subtitle,
+.et-banner-content-inner .et-banner-paragraph {
+  font-family: Linden_Hill;
+}
