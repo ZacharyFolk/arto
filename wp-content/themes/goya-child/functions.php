@@ -110,22 +110,22 @@ add_action('woocommerce_product_data_panels', function () {
             function woocommerce_product_custom_fields_save($post_id)
             {
                 $single_size_field = $_POST['_single_size_field'];
-                if (!empty($single_size_field)) update_post_meta($post_id, '_single_size_field', esc_attr($single_size_field));
+                update_post_meta($post_id, '_single_size_field', esc_attr($single_size_field));
 
                 $copyright_checkbox = isset($_POST['_custom_product_copyright_checkbox']) ? 'yes' : '';
                 update_post_meta($post_id, '_custom_product_copyright_checkbox', $copyright_checkbox);
 
                 $latin_name = $_POST['_latin_name'];
-                if (!empty($latin_name)) update_post_meta($post_id, '_latin_name', esc_attr($latin_name));
+                update_post_meta($post_id, '_latin_name', esc_attr($latin_name));
 
                 $artist_credit = $_POST['_artist_credit'];
-                if (!empty($artist_credit)) update_post_meta($post_id, '_artist_credit', esc_attr($artist_credit));
+                update_post_meta($post_id, '_artist_credit', esc_attr($artist_credit));
 
                 $artist_credit_link = $_POST['_artist_credit_link'];
-                if (!empty($artist_credit_link)) update_post_meta($post_id, '_artist_credit_link', esc_attr($artist_credit_link));
+                update_post_meta($post_id, '_artist_credit_link', esc_attr($artist_credit_link));
 
                 $creation_date = $_POST['_creation_date'];
-                if (!empty($creation_date)) update_post_meta($post_id, '_creation_date', esc_attr($creation_date));
+                update_post_meta($post_id, '_creation_date', esc_attr($creation_date));
             }
             add_action('woocommerce_process_product_meta', 'woocommerce_product_custom_fields_save');
 
