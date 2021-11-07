@@ -207,3 +207,6 @@ add_action('woocommerce_product_data_panels', function () {
 
                 return $tabs;
             }
+
+            // Add shortcode for Tag descriptions 
+            add_filter('term_description', 'do_shortcode');
