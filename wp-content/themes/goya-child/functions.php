@@ -137,7 +137,7 @@ add_action('woocommerce_product_data_panels', function () {
             function _size_el()
             {
                 global $product;
-                $editionText = get_post_meta($product->id, '_single_size_field', true);
+                $editionText = get_post_meta($product->get_id(), '_single_size_field', true);
                 if ($editionText) :
                     echo '<div>';
                     echo '<span><strong> Edition:</strong> ' . $editionText . '</span>';
@@ -149,17 +149,62 @@ add_action('woocommerce_product_data_panels', function () {
             function latinName()
             {
                 global $product;
-                $latin = get_post_meta($product->id, '_latin_name', true);
+                $latin = get_post_meta($product->get_id(), '_latin_name', true);
                 if ($latin) :
                     echo '<h2 class="latin">' . $latin . '</h2>';
                 endif;
             }
 
+            add_action('woocommerce_single_product_summary', '_credit', 26);
+            function _credit()
+            {
+                global $product;
+                $artistCredit = get_post_meta($product->get_id(), '_artist_credit', true);
+                $artistCreditLink = get_post_meta($product->get_id(), '_artist_credit_link', true);
+                $creationDate = get_post_meta($product->get_id(), '_creation_date', true);
+
+
+                if ($artistCredit) :
+                    echo '<p class="artist-credit">Credit : ';
+                    if ($artistCreditLink) :
+                        echo  '<a href="' . $artistCreditLink . '" title="Link to ' . $artistCredit . '" >' . $artistCredit . '</a>';
+                    else :
+                        echo  $artistCredit;
+                    endif;
+                    if ($creationDate) :
+                        echo ' (' . $creationDate . ')';
+                    endif;
+                    echo '</p>';
+                endif;
+            }
+
+
+            add_action('woocommerce_single_product_summary', 'paperType', 27);
+            function paperType()
+            {
+                global $product;
+                $papers = get_the_terms($product->get_id(), 'pa_paper-type');
+                if ($papers) {
+                    echo '<div>';
+
+                    foreach ($papers as $term) {
+                        echo '<p>Printed on ' . $term->name . '</p>';
+                        if ($term->description) {
+                            echo  '<p>' . $term->description . '</p>';
+                        }
+                        // write_log($term->name);
+                        // write_log($term->description);
+                    }
+                    echo '</div>';
+                }
+            }
+
+
             add_action('woocommerce_share', '_copyright_el', 11);
             function _copyright_el()
             {
                 global $product;
-                $copyValue = get_post_meta($product->id, '_custom_product_copyright_checkbox', true);
+                $copyValue = get_post_meta($product->get_id(), '_custom_product_copyright_checkbox', true);
                 if ($copyValue === 'yes') :
                     echo '<div class="cc-graphic">
             <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">
@@ -170,43 +215,35 @@ add_action('woocommerce_product_data_panels', function () {
             <img src="' . get_site_url() . '/wp-content/assets/images/cc-pd-80x15.png" alt="Create Commons Public Domain License" title="This work has been identified as being free of known restrictions under copyright law, including all related and neighboring rights."/></div></a>';
 
                 endif;
-                $creationDate = get_post_meta($product->id, '_creation_date', true);
-                if ($creationDate) :
-                    echo '<div>';
-                    echo '<span><strong> Date:</strong> ' . $creationDate . '</span>';
-                    echo '</div>';
-                endif;
             }
 
-            add_action('woocommerce_share', '_credit', 20);
-            function _credit()
+            /** Remove product data tabs */
+
+            add_filter('woocommerce_product_tabs', 'my_remove_product_tabs', 98);
+            function my_remove_product_tabs($tabs)
             {
-                global $product;
-                $artistCredit = get_post_meta($product->id, '_artist_credit', true);
-                $artistCreditLink = get_post_meta($product->id, '_artist_credit_link', true);
-                if ($artistCredit) :
-                    echo '<div class="artist-credit">Credit : ';
-                    if ($artistCreditLink) :
-                        echo  '<a href="' . $artistCreditLink . '" title="Link to ' . $artistCredit . '" target="_blank">' . $artistCredit . '</a>';
-                    else :
-                        echo  '<p>' . $artistCredit . '</p>';
-                    endif;
-                    echo '</div>';
-                endif;
-            }
-
-            // Rename "Description" Tab on Product Page 
-
-            add_filter('woocommerce_product_tabs', 'woo_rename_tabs', 98);
-            function woo_rename_tabs($tabs)
-            {
-
-                $tabs['description']['title'] = __('More Information');        // Rename the description tab
-                //	$tabs['reviews']['title'] = __( 'Ratings' );				// Rename the reviews tab
-                //	$tabs['additional_information']['title'] = __( 'Product Data' );	// Rename the additional information tab
-
+                unset($tabs['description']);
+                unset($tabs['additional_information']);
+                // remove reviews from admin config
+                // unset($tabs['reviews']);
                 return $tabs;
             }
 
+
             // Add shortcode for Tag descriptions 
             add_filter('term_description', 'do_shortcode');
+
+
+            // custom logs to main log file -> https://sarathlal.com/write-custom-data-wordpress-debug-log-file/
+            if (!function_exists('write_log')) {
+                function write_log($log)
+                {
+                    if (true === WP_DEBUG) {
+                        if (is_array($log) || is_object($log)) {
+                            error_log(print_r($log, true));
+                        } else {
+                            error_log($log);
+                        }
+                    }
+                }
+            }
