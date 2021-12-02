@@ -183,14 +183,33 @@ add_action('woocommerce_product_data_panels', function () {
             function paperType()
             {
                 global $product;
-                $papers = get_the_terms($product->get_id(), 'pa_paper-type');
+                $papers = get_the_terms($product->get_id(), 'pa_paper');
+                write_log('$papers');
+
+                write_log($papers);
+
+                // if ($papers) {
+                //     echo '<div class="paper-types">';
+
+                //     foreach ($papers as $term) {
+                //         echo '<p>Printed on ' . $term->name . '</p>';
+                //         if ($term->description) {
+                //             echo  '<p>' . $term->description . '</p>';
+                //         }
+                //         // write_log($term->name);
+                //         // write_log($term->description);
+                //     }
+                //     echo '</div>';
+                // }
+
+
                 if ($papers) {
-                    echo '<div>';
+                    echo '<div class="paper-types">';
 
                     foreach ($papers as $term) {
-                        echo '<p>Printed on ' . $term->name . '</p>';
+                        //  echo '<p>Printed on ' . $term->name . '</p>';
                         if ($term->description) {
-                            echo  '<p>' . $term->description . '</p>';
+                            echo  '<p>Printed on ' . $term->description . '</p>';
                         }
                         // write_log($term->name);
                         // write_log($term->description);
@@ -247,3 +266,8 @@ add_action('woocommerce_product_data_panels', function () {
                     }
                 }
             }
+
+        // If need to adjust related products could restrict to just tags or category
+
+        // add_filter('woocommerce_product_related_posts_relate_by_category', '__return_false');
+        // add_filter('woocommerce_product_related_posts_relate_by_tag', '__return_false');
