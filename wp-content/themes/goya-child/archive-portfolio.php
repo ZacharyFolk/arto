@@ -8,7 +8,6 @@
  */
 
 $p_page = goya_meta_config('portfolio','page', '');
-$category_navigation = goya_meta_config('portfolio','navigation', true);
 $portfolio_layout = goya_meta_config('portfolio','layout_main', 'masonry');
 $columns = goya_meta_config('portfolio','columns', '4');
 $alternate_cols = goya_meta_config('portfolio','list_alternate', true);
@@ -81,10 +80,7 @@ endwhile; endif;
 	<div class="container">
 		
 		<div class="post-content entry-content no-vc">
-			<?php if ($portfolio_layout != 'list') { ?>
-		    <?php if($category_navigation) {
-		     do_action('goya_render_filter', $categories, $rand, $portfolio_id_array );
-		    } ?>
+			<?php if ($portfolio_layout != 'list') { ?>	    
 				<div class="<?php echo esc_attr(implode(' ', $classes)); ?>" data-loadmore="#loadmore-<?php echo esc_attr($rand); ?>" data-filter="et-filter-<?php echo esc_attr($rand); ?>" data-layoutmode="packery">
 		  <?php } else { ?>
 			  <div class="<?php echo esc_attr(implode(' ', $classes)); ?>" data-loadmore="#loadmore-<?php echo esc_attr($rand); ?>">
