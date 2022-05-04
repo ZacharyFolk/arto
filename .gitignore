@@ -25,6 +25,7 @@ upgrade/
 twentynineteen/
 twentytwenty/
 twentytwentyone/
+twentytwentytwo/
 goya/
 fonts/
 # from host
@@ -37,3 +38,6 @@ favicon.ico
 hooks/
 info/
 debug.log
+.well-known/
+wp-content/maintenance.php
+wp-content/maintenance/
