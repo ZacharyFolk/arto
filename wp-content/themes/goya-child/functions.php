@@ -16,28 +16,6 @@ function goya_child_enqueue_styles()
 
 add_action('wp_enqueue_scripts', 'goya_child_enqueue_styles', 99);
 
-add_filter('goya_main_font_choices', 'goya_main_font_custom');
-function goya_main_font_custom()
-{
-    return array(
-        'fonts' => array(
-            'google'  => array('popularity', 700),
-            'families' => array(
-                'custom' => array(
-                    'text'   => 'Goya Custom Fonts',
-                    'children' => array(
-                        array('id' => 'Linden Hill', 'text' => 'Linden Hill'),
-                    ),
-                ),
-            ),
-            'variants' => array(
-                'Linden Hill' => array('regular', 'italic', 'bold', 'bolditalic', '400', '400italic', '600', '600italic', '800', '800italic'),
-            ),
-        ),
-    );
-}
-
-
 // Add size attribute if no variations
 // todo:  For some reason all General tab being hidden if you select Variable Product, works in my favor now because I don't want this field available for anything but single type, but kind of broken solution
 add_action('woocommerce_product_options_general_product_data', 'woocommerce_product_custom_fields');

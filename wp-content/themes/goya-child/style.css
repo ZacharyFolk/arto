@@ -6,29 +6,6 @@
 * Version: 1.0.6
 */
 
-@font-face {
-  font-family: 'Linden Hill';
-  src: local('Linden Hill'), local('Linden Hill'),
-    url('fonts/Linden_Hill/LindenHill-Regular.ttf') format('truetype');
-  /* Is this problem to only use truetype?*/
-  font-weight: 400;
-  font-style: normal;
-  font-stretch: normal;
-  font-display: swap;
-  unicode-range: U+000-5FF;
-}
-
-@font-face {
-  font-family: 'Linden Hill';
-  src: local('Linden Hill'), local('Linden Hill'),
-    url('fonts/Linden_Hill/LindenHill-Italic.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
-  font-stretch: normal;
-  font-display: swap;
-  unicode-range: U+000-5FF;
-}
-
 /* Home slider updates */
 .et-banner-text .et-banner-subtitle {
   text-transform: lowercase;
