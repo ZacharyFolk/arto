@@ -107,11 +107,14 @@ add_action('woocommerce_product_data_panels', function () {
             }
             add_action('woocommerce_process_product_meta', 'woocommerce_product_custom_fields_save');
 
-
+            add_action('woocommerce_single_product_summary', 'sizeDisclaimer', 28);
+            function sizeDisclaimer(){
+                echo "<div class='size-tip'>?</div>";
+            }
             //Display custom fields on Woocommerce Product Details Page
             // visual guide of locations : https://www.businessbloomer.com/woocommerce-visual-hook-guide-single-product-page/
 
-            add_action('woocommerce_single_product_summary', '_size_el', 5);
+            add_action('woocommerce_after_variations_form', '_size_el', 25);
             function _size_el()
             {
                 global $product;
@@ -249,3 +252,44 @@ add_action('woocommerce_product_data_panels', function () {
 
         // add_filter('woocommerce_product_related_posts_relate_by_category', '__return_false');
         // add_filter('woocommerce_product_related_posts_relate_by_tag', '__return_false');
+
+        function wpb_hidetitle_class($classes) {if ( is_single() || is_page() ) : $classes[] = 'hidetitle';return $classes;endif; return $classes;}add_filter('post_class', 'wpb_hidetitle_class');
+
+
+
+        add_filter( 'the_title', 'remove_page_title', 10, 2 );
+
+function remove_page_title( $title, $id ) {
+    if( is_home() || is_front_page() ) {
+        return '';
+
+    return $title;
+}
+}
+
+function get_random_img_src_by_tag($tag = '')
+{
+  if ($tag) {
+    $args = array(
+      'post_type' => 'product',
+      'posts_per_page' => 1,
+      'orderby' => 'rand',
+      'tax_query' => array(
+        array(
+          'taxonomy' => 'product_tag',
+          'field'    => 'name',
+          'terms'    => $tag,
+        ),
+      ),
+    );
+    $query = new WP_Query($args);
+    while ($query->have_posts()) : $query->the_post();
+      $id = get_the_ID();
+      if (has_post_thumbnail($id)) :
+        echo get_the_post_thumbnail($id, 'post-thumbnail');
+      endif;
+    endwhile;
+  }
+}
+
+
