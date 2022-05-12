@@ -22,11 +22,10 @@ xmlrpc.php
 plugins/
 uploads/
 upgrade/
-twentynineteen/
-twentytwenty/
-twentytwentyone/
-twentytwentytwo/
-goya/
+wp-content/themes/twentytwentytwo/
+wp-content/themes/goya/*
+# stop ignoring parent files that are getting updated
+!wp-content/themes/goya/functions.php
 fonts/
 # from host
 FETCH_HEAD
@@ -41,3 +40,4 @@ debug.log
 .well-known/
 wp-content/maintenance.php
 wp-content/maintenance/
+_delete
