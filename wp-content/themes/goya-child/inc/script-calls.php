@@ -1,20 +1,17 @@
 <?php
 
-/* Enqueue Styles
----------------------------------------------------------- */
+//////////////////////////
+//                      //
+//    Enqueue Styles    //
+//                      //
+//////////////////////////
 
-	define( 'GOYA_SCRIPT_DEBUG', apply_filters( 'goya_script_debug', false ) );
+	function child_styles() {
 
-	// Paths
-	define( 'GOYA_ASSET_CSS', GOYA_THEME_URI . '/assets/css' );
-	define( 'GOYA_ASSET_JS', GOYA_THEME_URI . '/assets/js' );
-	define( 'GOYA_ASSET_ICON', GOYA_THEME_URI . '/assets/icons' );
+        wp_enqueue_style( 'font-awesome', CHILD_ASSET_PACKAGES . '/fontawesome/css/all.min.css', array(), CHILD_THEME_VERSION, 'all' );
+        wp_enqueue_style( 'slick', CHILD_ASSET_PACKAGES . '/slick/accessible-slick-theme.min.css', array(), CHILD_THEME_VERSION, 'all' );
 
 
-	// Main Styles
-	function goya_styles() {
-		global $post;
-			
 		// Typekit fonts
 		if ( get_theme_mod('main_font_source', '1') === '2' && get_theme_mod('main_font_typekit_kit_id', '') != '' ) {
 			wp_enqueue_style( 'goya-typekit-main', '//use.typekit.net/' . esc_attr( get_theme_mod('main_font_typekit_kit_id', '') ) . '.css' );
@@ -24,36 +21,37 @@
 		}
 
 		//Theme Styles
-		wp_enqueue_style( 'goya-grid', GOYA_ASSET_CSS . '/grid.css', array(), GOYA_THEME_VERSION, 'all' );
-		wp_enqueue_style( 'goya-core', GOYA_ASSET_CSS . '/core.css', array(), GOYA_THEME_VERSION, 'all' );
+        wp_enqueue_style( 'bootstrap-grid', CHILD_ASSET_CSS . '/grid.css', array(), CHILD_THEME_VERSION, 'all' );
+		wp_enqueue_style( 'child-core', CHILD_ASSET_CSS . '/core.css', array(), CHILD_THEME_VERSION, 'all' );
+		wp_enqueue_style( 'child-custom', CHILD_ASSET_CSS . '/custom.css', array(), CHILD_THEME_VERSION, 'all' );
 
 		// Theme icon font
-		wp_enqueue_style( 'goya-icons', GOYA_ASSET_ICON . '/theme-icons/style.css', array(), GOYA_THEME_VERSION, 'all' );
+		// wp_enqueue_style( 'goya-icons', GOYA_ASSET_ICON . '/theme-icons/style.css', array(), GOYA_THEME_VERSION, 'all' );
 
 		
 		// WooCommerce
 		if( goya_wc_active() ) {
-			wp_enqueue_style( 'goya-shop', GOYA_ASSET_CSS . '/shop.css', array(), GOYA_THEME_VERSION, 'all' );
+		//	wp_enqueue_style( 'goya-shop', GOYA_ASSET_CSS . '/shop.css', array(), GOYA_THEME_VERSION, 'all' );
 		}
 		
 		// Visual Composer elements
 		if ( class_exists( 'WPBakeryVisualComposerAbstract' ) ) {
-			wp_enqueue_style( 'goya-elements', GOYA_ASSET_CSS . '/vc-elements.css', array(), GOYA_THEME_VERSION, 'all' );
+		//	wp_enqueue_style( 'goya-elements', GOYA_ASSET_CSS . '/vc-elements.css', array(), GOYA_THEME_VERSION, 'all' );
 		}
 
 		// Load RTL stylesheet if necessary
 		if ( is_rtl() ) {
-			wp_enqueue_style( 'goya-rtl', GOYA_ASSET_CSS . '/rtl.css', array(), GOYA_THEME_VERSION, 'all' );
+		//	wp_enqueue_style( 'goya-rtl', GOYA_ASSET_CSS . '/rtl.css', array(), GOYA_THEME_VERSION, 'all' );
 		}
 
 		// Inline styles from the customizer
-		wp_register_style('goya-customizer-styles', false); // Register handle
-		wp_enqueue_style('goya-customizer-styles');
-		wp_add_inline_style('goya-customizer-styles', goya_custom_styles());
+		// wp_register_style('goya-customizer-styles', false); // Register handle
+		// wp_enqueue_style('goya-customizer-styles');
+		// wp_add_inline_style('goya-customizer-styles', goya_custom_styles());
 
 	}
 
-	add_action('wp_enqueue_scripts', 'goya_styles', 10);
+	add_action('wp_enqueue_scripts', 'child_styles', 10);
 
 
 
@@ -62,15 +60,10 @@
 
 	function goya_scripts() {
 
-		// Script path and suffix setup (debug mode loads un-minified scripts)
-		if ( defined( 'GOYA_SCRIPT_DEBUG' ) && GOYA_SCRIPT_DEBUG ) {
-			$script_path = GOYA_ASSET_JS . '/dev/';
-			$suffix = '';
-		} else {
-			$script_path = GOYA_ASSET_JS . '/';
-			$suffix = '.min';
-		}
 		
+        $script_path = CHILD_ASSET_JS . '/';
+        $suffix = '';
+
 		if (!is_admin()) {
 			global $post;
 
@@ -79,35 +72,41 @@
 			
 			if ( apply_filters('goya_do_lazyload', get_theme_mod('lazy_load',false)) == true ) {
 				// Lazy loading
-				wp_enqueue_script( 'lazy-sizes',  GOYA_ASSET_JS . '/vendor/lazysizes.min.js', array( 'jquery' ), '5.3.0', TRUE);
+				wp_enqueue_script( 'lazy-sizes',  CHILD_ASSET_JS . '/vendor/lazysizes.min.js', array( 'jquery' ), '5.3.0', TRUE);
 			}
 			// Detect browser capabilites
-			wp_enqueue_script( 'modernizr', GOYA_ASSET_JS . '/vendor/modernizr.min.js', array('jquery'), '2.8.3', TRUE);
-			wp_enqueue_script( 'mobile-detect',  GOYA_ASSET_JS . '/vendor/mobile-detect.min.js', array( 'jquery' ), '1.3.2', TRUE);
-			wp_enqueue_script( 'in-viewport',  GOYA_ASSET_JS . '/vendor/isInViewport.min.js', array( 'jquery' ), '3.0.4', TRUE);
+			wp_enqueue_script( 'modernizr', CHILD_ASSET_JS . '/vendor/modernizr.min.js', array('jquery'), '2.8.3', TRUE);
+			wp_enqueue_script( 'mobile-detect',  CHILD_ASSET_JS . '/vendor/mobile-detect.min.js', array( 'jquery' ), '1.3.2', TRUE);
+			wp_enqueue_script( 'in-viewport',  CHILD_ASSET_JS . '/vendor/isInViewport.min.js', array( 'jquery' ), '3.0.4', TRUE);
 			
+
+
+            // Slick carousel
+			wp_enqueue_script( 'jquery-slick',  CHILD_ASSET_PACKAGES . '/slick/slick.min.js', array( 'jquery' ), '1.8.1', TRUE);
+
+
+
 			// Autocomplete
-			wp_enqueue_script( 'autocomplete',  GOYA_ASSET_JS . '/vendor/jquery.autocomplete.min.js', array( 'jquery' ), '1.4.1', TRUE);
+			wp_enqueue_script( 'autocomplete',  CHILD_ASSET_JS . '/vendor/jquery.autocomplete.min.js', array( 'jquery' ), '1.4.1', TRUE);
 			// Magnific Popup
-			wp_enqueue_script( 'magnific-popup',  GOYA_ASSET_JS . '/vendor/jquery.magnific-popup.min.js', array( 'jquery' ), '3.0.1', TRUE);
+			wp_enqueue_script( 'magnific-popup',  CHILD_ASSET_JS . '/vendor/jquery.magnific-popup.min.js', array( 'jquery' ), '3.0.1', TRUE);
 			// Scrollbars
-			wp_enqueue_script( 'perfect-scrollbar',  GOYA_ASSET_JS . '/vendor/perfect-scrollbar.jquery.min.js', array( 'jquery' ), '0.8.0', TRUE);
+			wp_enqueue_script( 'perfect-scrollbar',  CHILD_ASSET_JS . '/vendor/perfect-scrollbar.jquery.min.js', array( 'jquery' ), '0.8.0', TRUE);
 			//Sticky elements
-			wp_enqueue_script( 'sticky-kit',  GOYA_ASSET_JS . '/vendor/sticky-kit.min.js', array( 'jquery' ), '1.1.3', TRUE);
-			// Slick carousel
-			wp_enqueue_script( 'jquery-slick',  GOYA_ASSET_JS . '/vendor/slick.min.js', array( 'jquery' ), '1.8.1', TRUE);
+			wp_enqueue_script( 'sticky-kit',  CHILD_ASSET_JS . '/vendor/sticky-kit.min.js', array( 'jquery' ), '1.1.3', TRUE);
+	
 			// Masonry layouts
-			wp_enqueue_script( 'isotope-pk',  GOYA_ASSET_JS . '/vendor/isotope.pkgd.min.js', array( 'jquery' ), '3.0.6', TRUE);
-			wp_enqueue_script( 'packery',  GOYA_ASSET_JS . '/vendor/packery-mode.pkgd.min.js', array( 'jquery', ), '2.0.1', TRUE);
+			wp_enqueue_script( 'isotope-pk',  CHILD_ASSET_JS . '/vendor/isotope.pkgd.min.js', array( 'jquery' ), '3.0.6', TRUE);
+			wp_enqueue_script( 'packery',  CHILD_ASSET_JS . '/vendor/packery-mode.pkgd.min.js', array( 'jquery', ), '2.0.1', TRUE);
 			// Underscore
 			wp_enqueue_script('underscore');
 			// Manage cookies
-			wp_enqueue_script( 'cookie',  GOYA_ASSET_JS . '/vendor/jquery.cookie.min.js', array( 'jquery' ), '1.4.1');
+			wp_enqueue_script( 'cookie',  CHILD_ASSET_JS . '/vendor/jquery.cookie.min.js', array( 'jquery' ), '1.4.1');
 			// Check for new/deleted DOM elements
-			wp_enqueue_script( 'arrive',  GOYA_ASSET_JS . '/vendor/arrive.min.js', array( 'jquery' ), '2.4.1', TRUE);
+			wp_enqueue_script( 'arrive',  CHILD_ASSET_JS . '/vendor/arrive.min.js', array( 'jquery' ), '2.4.1', TRUE);
 			// Mobile menu
 			if ( get_theme_mod('mobile_menu_type', 'sliding') == 'sliding') {
-				wp_enqueue_script( 'sliding-menu',  GOYA_ASSET_JS . '/vendor/sliding-menu.min.js', array( 'jquery' ), '0.2.1', TRUE);	
+				wp_enqueue_script( 'sliding-menu',  CHILD_ASSET_JS . '/vendor/sliding-menu.min.js', array( 'jquery' ), '0.2.1', TRUE);	
 			}
 			// Comments
 			if ( is_singular() AND comments_open() AND (get_option('thread_comments') == 1) ) {
@@ -117,18 +116,18 @@
 			if( goya_wc_active() ) { // WooCommerce
 				// Image zoom
 				if ( goya_meta_config('product','image_hover_zoom',false) == true && is_product() ) {
-					wp_enqueue_script('easyzoom', GOYA_ASSET_JS . '/vendor/easyzoom.min.js', array('jquery'), '2.5.2', TRUE);
+					wp_enqueue_script('easyzoom', CHILD_ASSET_JS . '/vendor/easyzoom.min.js', array('jquery'), '2.5.2', TRUE);
 				}
 				// Core App script
-				wp_enqueue_script('goya-app', $script_path . 'goya-app' . $suffix . '.js', array('jquery', 'underscore','wc-add-to-cart-variation'), GOYA_THEME_VERSION, TRUE);
+				wp_enqueue_script('goya-app', $script_path . 'goya-app' . $suffix . '.js', array('jquery', 'underscore','wc-add-to-cart-variation'), CHILD_THEME_VERSION, TRUE);
 			} else {
 				// Core App script
-				wp_enqueue_script('goya-app', $script_path . 'goya-app' . $suffix . '.js', array('jquery', 'underscore'), GOYA_THEME_VERSION, TRUE);
+				wp_enqueue_script('goya-app', $script_path . 'goya-app' . $suffix . '.js', array('jquery', 'underscore'), CHILD_THEME_VERSION, TRUE);
 			}
 
 			// Run animations when goya-app is delayed
 			if ( apply_filters('goya_load_animations_script', false) == true ) {
-				wp_enqueue_script('goya-animations', GOYA_ASSET_JS . '/goya-animations.min.js', '', GOYA_THEME_VERSION, TRUE);
+				wp_enqueue_script('goya-animations', CHILD_ASSET_JS . '/goya-animations.min.js', '', CHILD_THEME_VERSION, TRUE);
 			}
 
 			// Theme variables
@@ -179,20 +178,20 @@
 	function goya_admin_assets( $hook ) {
 		
 		// Admin CSS
-		wp_enqueue_style( 'goya-admin-css', GOYA_ASSET_CSS . '/admin/admin.min.css', null, GOYA_THEME_VERSION);
+		wp_enqueue_style( 'goya-admin-css', CHILD_ASSET_CSS . '/admin/admin.min.css', null, CHILD_THEME_VERSION);
 
 		if ( in_array( $hook, array( 'post.php', 'post-new.php' ) ) ) {
 
 			// Gutenberg styles
-			wp_enqueue_style( 'goya-gutenberg', GOYA_ASSET_CSS . '/admin/gutenberg.css', false, GOYA_THEME_VERSION, 'all' );
+			wp_enqueue_style( 'goya-gutenberg', CHILD_ASSET_CSS . '/admin/gutenberg.css', false, CHILD_THEME_VERSION, 'all' );
 			wp_add_inline_style( 'goya-gutenberg', goya_gutenberg_styles() );
 
 			wp_enqueue_style( 'wp-color-picker' ); 
 
 			// WP Bakery styles
 			if (class_exists('WPBakeryVisualComposerAbstract')) {
-				wp_enqueue_style( 'goya-admin-vc-css', GOYA_ASSET_CSS . '/admin/admin-vc.min.css', null, GOYA_THEME_VERSION);
-				wp_enqueue_script( 'goya-admin-vc', GOYA_ASSET_JS . '/admin/admin-vc.min.js', array('jquery'), GOYA_THEME_VERSION);
+				wp_enqueue_style( 'goya-admin-vc-css', CHILD_ASSET_CSS . '/admin/admin-vc.min.css', null, CHILD_THEME_VERSION);
+				wp_enqueue_script( 'goya-admin-vc', CHILD_ASSET_JS . '/admin/admin-vc.min.js', array('jquery'), CHILD_THEME_VERSION);
 			}
 
 		}
@@ -200,7 +199,7 @@
 		if ( in_array( $hook, array( 'post.php', 'post-new.php', 'nav-menus.php', 'term.php' ) ) ) {
 			
 			// General JS scripts
-			wp_enqueue_script( 'goya-admin-general', GOYA_ASSET_JS . '/admin/admin-general.min.js', array( 'jquery', 'wp-color-picker' ), GOYA_THEME_VERSION, true );
+			wp_enqueue_script( 'goya-admin-general', CHILD_ASSET_JS . '/admin/admin-general.min.js', array( 'jquery', 'wp-color-picker' ), CHILD_THEME_VERSION, true );
 		}
 		
 	}
@@ -210,9 +209,9 @@
 	/* Load assets on login page */
 	function goya_wp_login_assets( $hook ) {
 		// Admin CSS
-		wp_enqueue_style( 'goya-admin-css', GOYA_ASSET_CSS . '/admin/admin.min.css', null, GOYA_THEME_VERSION);
+		wp_enqueue_style( 'goya-admin-css', CHILD_ASSET_CSS . '/admin/admin.min.css', null, CHILD_THEME_VERSION);
 		// Theme icon font
-		wp_enqueue_style( 'goya-icons', GOYA_ASSET_ICON . '/theme-icons/style.css', array(), GOYA_THEME_VERSION, 'all' );
+		wp_enqueue_style( 'goya-icons', CHILD_ASSET_ICON . '/theme-icons/style.css', array(), CHILD_THEME_VERSION, 'all' );
 	}
 	add_action( 'login_enqueue_scripts', 'goya_wp_login_assets' );
 

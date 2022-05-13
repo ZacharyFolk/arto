@@ -26,6 +26,8 @@ wp-content/themes/twentytwentytwo/
 wp-content/themes/goya/*
 # stop ignoring parent files that are getting updated
 !wp-content/themes/goya/functions.php
+wp-content/themes/goya-child/assets/*
+!wp-content/themes/goya-child/assets/css
 fonts/
 # from host
 FETCH_HEAD

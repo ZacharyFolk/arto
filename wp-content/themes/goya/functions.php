@@ -46,7 +46,7 @@ require GOYA_DIR .'/frontend/panels.php';
 require GOYA_DIR .'/frontend/entry.php';
 
 // Script Calls
-require GOYA_DIR .'/script-calls.php';
+// require GOYA_DIR .'/script-calls.php';
 
 // Ajax
 require GOYA_DIR .'/ajax.php';
